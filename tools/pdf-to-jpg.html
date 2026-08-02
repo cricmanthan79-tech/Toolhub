@@ -189,13 +189,21 @@ const jpg=canvas.toDataURL(
 
 images.push(jpg);
 
-
+canvas.width=1;
+canvas.height=1;
 
 
 let box=document.createElement("div");
 
 let img=document.createElement("img");
 img.src=jpg;
+  
+let pageText=document.createElement("p");
+pageText.innerText="Page "+i;
+pageText.style.fontWeight="bold";
+
+box.appendChild(pageText);
+
 img.style.cursor="pointer";
 
 img.onclick=function(){
@@ -287,7 +295,7 @@ images.forEach((img,index)=>{
 let data=img.split(",")[1];
 
 zip.file(
-"ToolHub-Page-"+(index+1)+".jpg",
+"ToolHub_Converted_Page_"+(index+1)+".jpg",
 data,
 {base64:true}
 );
