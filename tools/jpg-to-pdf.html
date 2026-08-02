@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>JPG to PDF</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPG to PDF - ToolHub</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+text-align:center;
+padding:20px;
+}
+.container{
+max-width:500px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+button{
+padding:10px 20px;
+margin-top:15px;
+cursor:pointer;
+}
+</style>
 </head>
 <body>
+
+<div class="container">
 <h1>JPG to PDF</h1>
-<p>Tool Coming Soon...</p>
+
+<input type="file" id="images" accept="image/*" multiple>
+
+<br><br>
+
+<button onclick="createPDF()">Create PDF</button>
+
+<p id="status"></p>
+
+<script>
+async function createPDF(){
+
+const files=document.getElementById("images").files;
+
+if(files.length===0){
+alert("Please select image");
+return;
+}
+  const { jsPDF } = window.jspdf;
+const pdf = new jsPDF();
+
+for(let i=0;i<files.length;i++){
+
+const file=files[i];
+
+const dataUrl=await new Promise((resolve)=>{
+const reader=new FileReader();
+reader.onload=e=>resolve(e.target.result);
+reader.readAsDataURL(file);
+});
+
+if(i>0){
+pdf.addPage();
+}
+
+pdf.addImage(dataUrl,"JPEG",10,10,190,0);
+
+}
+
+pdf.save("ToolHub.pdf");
+
+document.getElementById("status").innerText="✅ PDF Created Successfully";
+
+}
+</script>
+
+</div>
+
 </body>
 </html>
