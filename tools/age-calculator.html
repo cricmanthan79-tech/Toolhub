@@ -69,7 +69,13 @@ line-height:1.8;
 
 
 <input type="date" id="dob">
+<br><br>
 
+<label>Calculate age till:</label>
+
+<br>
+
+<input type="date" id="targetDate">
 <br>
 
 <button onclick="calculateAge()">
@@ -104,7 +110,9 @@ return;
 
 let birthDate=new Date(dob);
 
-let today=new Date();
+let target=document.getElementById("targetDate").value;
+
+let today = target ? new Date(target) : new Date();
 
 
 let years=today.getFullYear()-birthDate.getFullYear();
