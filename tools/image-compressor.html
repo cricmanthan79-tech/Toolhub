@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Compressor - ToolHub</title>
 
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+input,button{
+margin:10px;
+padding:10px;
+}
+
+img{
+max-width:100%;
+margin-top:20px;
+border-radius:8px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Image Compressor</h1>
+
+<input type="file" id="imageInput" accept="image/*">
+
+<div id="result"></div>
