@@ -49,29 +49,28 @@ button{
 background:#2563eb;
 color:white;
 border:none;
-padding:12px 25px;
+padding:12px 20px;
 border-radius:8px;
 cursor:pointer;
 font-size:16px;
-margin-top:15px;
+margin:8px;
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
 <h1>📝 Word Counter</h1>
 
-<p>Count words and characters instantly</p>
+<p>Count words, characters and reading time</p>
 
 
-<textarea id="text" placeholder="Type or paste your text here..."></textarea>
+<textarea id="text" placeholder="Type or paste your text here..."
+oninput="countText()"></textarea>
 
 
 <div class="stats">
@@ -80,15 +79,22 @@ margin-top:15px;
 
 <div>Characters: <b id="chars">0</b></div>
 
-<div>Characters (without spaces): <b id="charsNoSpace">0</b></div>
+<div>Characters without spaces: <b id="noSpace">0</b></div>
 
 <div>Sentences: <b id="sentences">0</b></div>
+
+<div>Reading Time: <b id="time">0</b> min</div>
 
 </div>
 
 
-<button onclick="copyText()">
-Copy Text
+<button onclick="clearText()">
+🗑️ Clear
+</button>
+
+
+<button onclick="downloadText()">
+📥 Download TXT
 </button>
 
 
@@ -99,50 +105,70 @@ Copy Text
 <script>
 
 
-let text=document.getElementById("text");
-
-
-text.addEventListener("input",countText);
-
-
-
 function countText(){
 
+let text=document.getElementById("text").value;
 
-let value=text.value.trim();
-
-
-let words=value ? value.split(/\s+/).length : 0;
+let clean=text.trim();
 
 
-let chars=text.value.length;
+let words=clean ? clean.split(/\s+/).length : 0;
 
 
-let charsNoSpace=text.value.replace(/\s/g,"").length;
+let chars=text.length;
 
 
-let sentences=value ? value.split(/[.!?]+/).filter(Boolean).length : 0;
+let noSpace=text.replace(/\s/g,"").length;
 
+
+let sentences=clean ? clean.split(/[.!?]+/).filter(Boolean).length : 0;
+
+
+let reading=Math.ceil(words/200);
 
 
 document.getElementById("words").innerText=words;
 
 document.getElementById("chars").innerText=chars;
 
-document.getElementById("charsNoSpace").innerText=charsNoSpace;
+document.getElementById("noSpace").innerText=noSpace;
 
 document.getElementById("sentences").innerText=sentences;
+
+document.getElementById("time").innerText=reading;
 
 
 }
 
 
 
-function copyText(){
+function clearText(){
 
-navigator.clipboard.writeText(text.value);
+document.getElementById("text").value="";
 
-alert("Text copied!");
+countText();
+
+}
+
+
+
+function downloadText(){
+
+let text=document.getElementById("text").value;
+
+
+let blob=new Blob([text],{
+type:"text/plain"
+});
+
+
+let link=document.createElement("a");
+
+link.href=URL.createObjectURL(blob);
+
+link.download="ToolHub-Text.txt";
+
+link.click();
 
 }
 
