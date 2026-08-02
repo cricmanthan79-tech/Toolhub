@@ -1,4 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<a href="tools/image-resizer.html">
-<button>Open Tool</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Resizer - ToolHub</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+
+input{
+margin:10px;
+padding:8px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+margin-top:15px;
+}
+
+img{
+max-width:100%;
+margin-top:20px;
+border-radius:8px;
+}
+
+#download{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🖼️ Image Resizer</h1>
+
+<p>Resize your image easily</p>
+
+<input type="file" id="upload" accept="image/*">
+
+<br>
+
+<label>
+Width:
+<input type="number" id="width" value="800">
+</label>
+
+<br>
+
+<label>
+Height:
+<input type="number" id="height" value="600">
+</label>
+
+<br>
+
+<button onclick="resizeImage()">Resize Image</button>
+
+<br>
+
+<img id="preview" style="display:none;">
+
+<br>
+
+<a id="download">
+<button>Download Image</button>
 </a>
+
+
+</div>
+
+
+<script>
+
+function resizeImage(){
+
+const file=document.getElementById("upload").files[0];
+
+if(!file){
+alert("Please select image");
+return;
+}
+
+
+const width=document.getElementById("width").value;
+const height=document.getElementById("height").value;
+
+
+const reader=new FileReader();
+
+
+reader.onload=function(e){
+
+const img=new Image();
+
+img.onload=function(){
+
+const canvas=document.createElement("canvas");
+
+canvas.width=width;
+canvas.height=height;
+
+
+const ctx=canvas.getContext("2d");
+
+ctx.drawImage(img,0,0,width,height);
+
+
+const resized=canvas.toDataURL("image/jpeg",0.9);
+
+
+const preview=document.getElementById("preview");
+
+preview.src=resized;
+preview.style.display="block";
+
+
+const download=document.getElementById("download");
+
+download.href=resized;
+download.download="ToolHub-resized-image.jpg";
+download.style.display="inline-block";
+
+
+}
+
+
+img.src=e.target.result;
+
+
+}
+
+
+reader.readAsDataURL(file);
+
+
+}
+
+</script>
+
+
+</body>
+</html>
