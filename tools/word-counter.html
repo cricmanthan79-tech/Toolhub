@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Word Counter - ToolHub</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+
+textarea{
+width:95%;
+height:200px;
+padding:15px;
+font-size:16px;
+border:1px solid #ddd;
+border-radius:8px;
+resize:none;
+}
+
+.stats{
+margin-top:20px;
+font-size:18px;
+line-height:1.8;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<h1>📝 Word Counter</h1>
+
+<p>Count words and characters instantly</p>
+
+
+<textarea id="text" placeholder="Type or paste your text here..."></textarea>
+
+
+<div class="stats">
+
+<div>Words: <b id="words">0</b></div>
+
+<div>Characters: <b id="chars">0</b></div>
+
+<div>Characters (without spaces): <b id="charsNoSpace">0</b></div>
+
+<div>Sentences: <b id="sentences">0</b></div>
+
+</div>
+
+
+<button onclick="copyText()">
+Copy Text
+</button>
+
+
+</div>
+
+
+
+<script>
+
+
+let text=document.getElementById("text");
+
+
+text.addEventListener("input",countText);
+
+
+
+function countText(){
+
+
+let value=text.value.trim();
+
+
+let words=value ? value.split(/\s+/).length : 0;
+
+
+let chars=text.value.length;
+
+
+let charsNoSpace=text.value.replace(/\s/g,"").length;
+
+
+let sentences=value ? value.split(/[.!?]+/).filter(Boolean).length : 0;
+
+
+
+document.getElementById("words").innerText=words;
+
+document.getElementById("chars").innerText=chars;
+
+document.getElementById("charsNoSpace").innerText=charsNoSpace;
+
+document.getElementById("sentences").innerText=sentences;
+
+
+}
+
+
+
+function copyText(){
+
+navigator.clipboard.writeText(text.value);
+
+alert("Text copied!");
+
+}
+
+
+</script>
+
+
+</body>
+</html>
