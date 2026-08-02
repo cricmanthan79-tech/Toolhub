@@ -137,13 +137,14 @@ cropper.destroy();
 
 
 cropper=new Cropper(image,{
-viewMode:1,
+viewMode:2,
 autoCropArea:1,
 responsive:true,
 background:false,
 movable:true,
 zoomable:true,
-scalable:true
+scalable:false,
+dragMode:"move"
 });
 
 
