@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PDF Merge - ToolHub</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+margin-top:15px;
+}
+
+#download{
+display:none;
+}
+
+#status{
+margin-top:15px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>📑 PDF Merge</h1>
+
+<p>Select multiple PDF files and merge them</p>
+
+<input type="file" id="pdfFiles" accept="application/pdf" multiple>
+
+<br>
+
+<button onclick="mergePDF()">Merge PDF</button>
+
+<p id="status"></p>
+
+<a id="download">
+<button>Download Merged PDF</button>
+</a>
+
+
+</div>
+
+
+<script>
+
+async function mergePDF(){
+
+const files=document.getElementById("pdfFiles").files;
+
+
+if(files.length < 2){
+alert("Please select at least 2 PDF files");
+return;
+}
+
+
+const mergedPdf = await PDFLib.PDFDocument.create();
+
+
+for(let file of files){
+
+const bytes = await file.arrayBuffer();
+
+const pdf = await PDFLib.PDFDocument.load(bytes);
+
+
+const copiedPages = await mergedPdf.copyPages(
+pdf,
+pdf.getPageIndices()
+);
+
+
+copiedPages.forEach((page)=>{
+mergedPdf.addPage(page);
+});
+
+}
+
+
+const mergedBytes = await mergedPdf.save();
+
+
+const blob = new Blob(
+[mergedBytes],
+{type:"application/pdf"}
+);
+
+
+const url = URL.createObjectURL(blob);
+
+
+const download=document.getElementById("download");
+
+download.href=url;
+download.download="ToolHub-Merged-PDF.pdf";
+download.style.display="inline-block";
+
+
+document.getElementById("status").innerText=
+"✅ PDF Merged Successfully";
+
+
+}
+
+</script>
+
+
+</body>
+
+</html>
