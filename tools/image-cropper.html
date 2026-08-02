@@ -37,8 +37,8 @@ input{
 margin:15px;
 }
 
-img{
-max-width:100%;
+#image{
+width:100%;
 max-height:500px;
 display:block;
 margin:20px auto;
@@ -130,10 +130,13 @@ cropper.destroy();
 
 
 cropper=new Cropper(image,{
-aspectRatio:NaN,
-viewMode:2,
+viewMode:1,
 autoCropArea:1,
-responsive:true
+responsive:true,
+background:false,
+movable:true,
+zoomable:true,
+scalable:true
 });
 
 
