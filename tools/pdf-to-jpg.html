@@ -8,6 +8,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
 <style>
 body{
 font-family:Arial,sans-serif;
@@ -17,9 +18,9 @@ text-align:center;
 }
 
 .container{
-max-width:700px;
+max-width:750px;
 margin:auto;
-background:#fff;
+background:white;
 padding:25px;
 border-radius:12px;
 box-shadow:0 2px 10px rgba(0,0,0,.1);
@@ -31,25 +32,47 @@ color:#2563eb;
 
 button{
 background:#2563eb;
-color:#fff;
+color:white;
 border:none;
-padding:12px 24px;
+padding:12px 22px;
 border-radius:8px;
 cursor:pointer;
-margin-top:15px;
+margin:10px;
 font-size:16px;
 }
 
-canvas{
-max-width:100%;
-margin-top:20px;
-border:1px solid #ddd;
+select,input{
+padding:10px;
+margin:10px;
 }
 
-#download{
+.progress{
+width:100%;
+background:#ddd;
+height:20px;
+border-radius:10px;
+overflow:hidden;
+margin-top:20px;
+}
+
+#bar{
+height:100%;
+width:0%;
+background:#2563eb;
+}
+
+.preview img{
+width:180px;
+margin:10px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+#downloadZip{
 display:none;
 }
 </style>
+
 </head>
 
 <body>
@@ -58,68 +81,178 @@ display:none;
 
 <h1>🖼️ PDF to JPG</h1>
 
-<p>Select a PDF and convert the first page to JPG.</p>
+<p>Convert all PDF pages into JPG images</p>
 
 <input type="file" id="pdfFile" accept="application/pdf">
 
 <br>
 
-<button onclick="convertPDF()">Convert to JPG</button>
-
-<p id="status"></p>
-
-<canvas id="canvas"></canvas>
+<select id="quality">
+<option value="1.5">Low Quality</option>
+<option value="2" selected>Medium Quality</option>
+<option value="3">HD Quality</option>
+</select>
 
 <br>
 
-<a id="download">
-<button>Download JPG</button>
+<button onclick="convertPDF()">Convert PDF</button>
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<p id="status"></p>
+
+<div class="preview" id="preview"></div>
+
+<a id="downloadZip">
+<button>Download ZIP</button>
 </a>
 
 </div>
 
+
 <script>
+
 pdfjsLib.GlobalWorkerOptions.workerSrc =
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
+
+let images=[];
+
+
 async function convertPDF(){
-  const file = document.getElementById("pdfFile").files[0];
+
+const file=document.getElementById("pdfFile").files[0];
 
 if(!file){
-alert("Please select a PDF");
+alert("Please select PDF");
 return;
 }
 
-const pdfData = await file.arrayBuffer();
 
-const pdf = await pdfjsLib.getDocument({data: pdfData}).promise;
+images=[];
 
-const page = await pdf.getPage(1);
+document.getElementById("preview").innerHTML="";
+document.getElementById("downloadZip").style.display="none";
 
-const viewport = page.getViewport({scale:2});
 
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
+const quality=parseFloat(
+document.getElementById("quality").value
+);
 
-canvas.width = viewport.width;
-canvas.height = viewport.height;
+
+const data=await file.arrayBuffer();
+
+const pdf=await pdfjsLib.getDocument({data:data}).promise;
+
+
+const total=pdf.numPages;
+
+
+for(let i=1;i<=total;i++){
+
+
+document.getElementById("status").innerText=
+"Converting page "+i+" of "+total;
+
+
+const page=await pdf.getPage(i);
+
+
+const viewport=page.getViewport({
+scale:quality
+});
+
+
+const canvas=document.createElement("canvas");
+
+const ctx=canvas.getContext("2d");
+
+
+canvas.width=viewport.width;
+canvas.height=viewport.height;
+
 
 await page.render({
-canvasContext: context,
-viewport: viewport
+canvasContext:ctx,
+viewport:viewport
 }).promise;
 
-const jpg = canvas.toDataURL("image/jpeg",0.95);
 
-const download = document.getElementById("download");
 
-download.href = jpg;
-download.download = "ToolHub-Page-1.jpg";
-download.style.display = "inline-block";
+const jpg=canvas.toDataURL(
+"image/jpeg",
+0.95
+);
 
-document.getElementById("status").innerText =
-"✅ First page converted to JPG.";
-  }
+
+images.push(jpg);
+
+
+
+let img=document.createElement("img");
+img.src=jpg;
+
+document.getElementById("preview")
+.appendChild(img);
+
+
+
+let percent=(i/total)*100;
+
+document.getElementById("bar")
+.style.width=percent+"%";
+
+
+}
+
+
+
+document.getElementById("status").innerText=
+"✅ All pages converted";
+
+
+createZip();
+
+}
+
+
+
+async function createZip(){
+
+const zip=new JSZip();
+
+
+images.forEach((img,index)=>{
+
+let data=img.split(",")[1];
+
+zip.file(
+"ToolHub-Page-"+(index+1)+".jpg",
+data,
+{base64:true}
+);
+
+});
+
+
+const content=await zip.generateAsync({
+type:"blob"
+});
+
+
+const link=document.getElementById("downloadZip");
+
+link.href=URL.createObjectURL(content);
+
+link.download="ToolHub-PDF-to-JPG.zip";
+
+link.style.display="inline-block";
+
+
+}
+
 </script>
 
 </body>
