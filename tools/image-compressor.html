@@ -45,3 +45,45 @@ border-radius:8px;
 <input type="file" id="imageInput" accept="image/*">
 
 <div id="result"></div>
+
+  <button onclick="compressImage()">Compress Image</button>
+
+<br>
+
+<img id="preview" style="display:none;">
+
+<br>
+
+<a id="download" style="display:none;">
+<button>Download Compressed Image</button>
+</a>
+
+</div>
+
+<script>
+async function compressImage(){
+
+const file=document.getElementById("imageInput").files[0];
+
+if(!file){
+alert("Please select an image");
+return;
+}
+
+const options={
+maxSizeMB:0.3,
+maxWidthOrHeight:1920,
+useWebWorker:true
+};
+
+const compressedFile=await imageCompression(file,options);
+
+const url=URL.createObjectURL(compressedFile);
+
+document.getElementById("preview").src=url;
+document.getElementById("preview").style.display="block";
+
+document.getElementById("download").href=url;
+document.getElementById("download").download="compressed-image.jpg";
+document.getElementById("download").style.display="inline";
+}
