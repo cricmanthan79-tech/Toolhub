@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Cropper - ToolHub</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+
+input{
+margin:15px;
+}
+
+img{
+max-width:100%;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+margin-top:15px;
+}
+
+#preview{
+max-width:100%;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<h1>✂️ Image Cropper</h1>
+
+<p>Crop your image online</p>
+
+
+<input type="file" id="upload" accept="image/*">
+
+
+<br>
+
+
+<img id="image">
+
+
+<br>
+
+
+<button onclick="cropImage()">
+Download Cropped Image
+</button>
+
+
+
+</div>
+
+
+
+<script>
+
+
+let cropper;
+
+
+document.getElementById("upload")
+.addEventListener("change",function(e){
+
+
+let file=e.target.files[0];
+
+
+if(file){
+
+
+let reader=new FileReader();
+
+
+reader.onload=function(event){
+
+
+let image=document.getElementById("image");
+
+image.src=event.target.result;
+
+
+if(cropper){
+cropper.destroy();
+}
+
+
+cropper=new Cropper(image,{
+aspectRatio:NaN,
+viewMode:1
+});
+
+
+}
+
+
+reader.readAsDataURL(file);
+
+
+}
+
+
+});
+
+
+
+function cropImage(){
+
+
+if(!cropper){
+
+alert("Please upload image");
+
+return;
+
+}
+
+
+let canvas=cropper.getCroppedCanvas();
+
+
+let link=document.createElement("a");
+
+
+link.href=canvas.toDataURL("image/png");
+
+
+link.download="ToolHub-Cropped-Image.png";
+
+
+link.click();
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
