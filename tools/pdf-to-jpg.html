@@ -199,7 +199,15 @@ img.src=jpg;
 img.style.cursor="pointer";
 
 img.onclick=function(){
-window.open(jpg,"_blank");
+
+let newWindow = window.open();
+
+newWindow.document.write(
+'<html><body style="margin:0;text-align:center;background:#000;">' +
+'<img src="' + jpg + '" style="max-width:100%;height:auto;">' +
+'</body></html>'
+);
+
 };
 
 
