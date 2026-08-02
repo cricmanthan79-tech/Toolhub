@@ -61,7 +61,9 @@ border-radius:8px;
 </div>
 
 <script>
-async function compressImage(){try{
+async function compressImage(){
+
+try{
 
 const file=document.getElementById("imageInput").files[0];
 
@@ -86,13 +88,10 @@ document.getElementById("preview").style.display="block";
 document.getElementById("download").href=url;
 document.getElementById("download").download="compressed-image.jpg";
 document.getElementById("download").style.display="inline";
+
 }
 catch(error){
 alert("Compression failed!");
 console.error(error);
 }
 }
-</script>
-
-</body>
-</html>
