@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Split - ToolHub</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:550px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+input{
+margin:10px;
+padding:10px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 24px;
+border-radius:8px;
+cursor:pointer;
+margin-top:15px;
+}
+
+#download{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📄 PDF Split</h1>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<br>
+
+<label>Page Number:</label>
+<input type="number" id="pageNumber" min="1" value="1">
+
+<br>
+
+<button onclick="splitPDF()">Split PDF</button>
+
+<p id="status"></p>
+
+<a id="download">
+<button>Download Split PDF</button>
+</a>
+
+</div>
+
+<script>
+async function splitPDF(){
+
+const file=document.getElementById("pdfFile").files[0];
+
+if(!file){
+alert("Please select a PDF");
+return;
+}const pageNumber=parseInt(document.getElementById("pageNumber").value);
+
+const bytes=await file.arrayBuffer();
+
+const sourcePdf=await PDFLib.PDFDocument.load(bytes);
+
+const totalPages=sourcePdf.getPageCount();
+
+if(pageNumber<1 || pageNumber>totalPages){
+alert("Invalid page number");
+return;
+}
+
+const newPdf=await PDFLib.PDFDocument.create();
+
+const [page]=await newPdf.copyPages(
+sourcePdf,
+[pageNumber-1]
+);
+
+newPdf.addPage(page);
+
+const pdfBytes=await newPdf.save();
+
+const blob=new Blob(
+[pdfBytes],
+{type:"application/pdf"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const download=document.getElementById("download");
+
+download.href=url;
+download.download="Split-PDF-Page-"+pageNumber+".pdf";
+download.style.display="inline-block";
+
+document.getElementById("status").innerText=
+"✅ PDF Split Successfully";
+  }
+</script>
+
+</body>
+</html>
