@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>PDF to JPG - ToolHub</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+
+button{
+background:#2563eb;
+color:#fff;
+border:none;
+padding:12px 24px;
+border-radius:8px;
+cursor:pointer;
+margin-top:15px;
+font-size:16px;
+}
+
+canvas{
+max-width:100%;
+margin-top:20px;
+border:1px solid #ddd;
+}
+
+#download{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🖼️ PDF to JPG</h1>
+
+<p>Select a PDF and convert the first page to JPG.</p>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<br>
+
+<button onclick="convertPDF()">Convert to JPG</button>
+
+<p id="status"></p>
+
+<canvas id="canvas"></canvas>
+
+<br>
+
+<a id="download">
+<button>Download JPG</button>
+</a>
+
+</div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+async function convertPDF(){
+  const file = document.getElementById("pdfFile").files[0];
+
+if(!file){
+alert("Please select a PDF");
+return;
+}
+
+const pdfData = await file.arrayBuffer();
+
+const pdf = await pdfjsLib.getDocument({data: pdfData}).promise;
+
+const page = await pdf.getPage(1);
+
+const viewport = page.getViewport({scale:2});
+
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+
+canvas.width = viewport.width;
+canvas.height = viewport.height;
+
+await page.render({
+canvasContext: context,
+viewport: viewport
+}).promise;
+
+const jpg = canvas.toDataURL("image/jpeg",0.95);
+
+const download = document.getElementById("download");
+
+download.href = jpg;
+download.download = "ToolHub-Page-1.jpg";
+download.style.display = "inline-block";
+
+document.getElementById("status").innerText =
+"✅ First page converted to JPG.";
+  }
+</script>
+
+</body>
+</html>
