@@ -78,6 +78,14 @@ border:1px solid #ddd;
 <br>
 
 <select id="position">
+  <br>
+
+<label>Download Format</label><br>
+
+<select id="downloadFormat">
+<option value="png">PNG</option>
+<option value="jpeg">JPG</option>
+</select>
 <option value="top-left">Top Left</option>
 <option value="top-right">Top Right</option>
 <option value="center" selected>Center</option>
@@ -186,9 +194,11 @@ ctx.fillText(text,x,y);
 
 const link=document.getElementById("download");
 
-link.href=canvas.toDataURL("image/png");
+const format=document.getElementById("downloadFormat").value;
 
-link.download="ToolHub-Watermark.png";
+link.href=canvas.toDataURL("image/"+format,0.95);
+
+link.download="ToolHub-Watermark."+format;
 
 link.style.display="inline-block";
 
