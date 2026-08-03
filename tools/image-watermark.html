@@ -149,7 +149,8 @@ const file=e.target.files[0];
 if(!file)return;
 
 logo.onload=function(){
-logoLoaded=true;
+    logoLoaded=true;
+    alert("Logo uploaded successfully");
 };
 
 logo.src=URL.createObjectURL(file);
