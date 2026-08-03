@@ -250,5 +250,21 @@ onkeyup="searchTools()">
 <p>© 2026 ToolHub | Free PDF & Image Tools</p>
 </footer>
 <p><b>🚧 Tools are under development. New tools are added regularly.</b></p>
+<script>
+function searchTools() {
+  let input = document.getElementById("searchBox").value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    let title = card.querySelector("h3").innerText.toLowerCase();
+
+    if (title.includes(input)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+</script>
 </body>
 </html>
