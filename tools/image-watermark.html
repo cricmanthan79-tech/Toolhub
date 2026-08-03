@@ -230,6 +230,27 @@ break;
 }
 
 ctx.fillText(text,x,y);
+  // Add Logo Watermark
+if(logoLoaded){
+
+let logoSize = 120;
+
+let logoX = canvas.width - logoSize - 20;
+let logoY = canvas.height - logoSize - 20;
+
+ctx.globalAlpha = opacity;
+
+ctx.drawImage(
+logo,
+logoX,
+logoY,
+logoSize,
+logoSize
+);
+
+ctx.globalAlpha = 1;
+
+}
 
 const link=document.getElementById("download");
 
