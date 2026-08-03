@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Thumbnail Downloader - ToolHub</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+text-align:center;
+}
+
+h1{
+color:#2563eb;
+margin-bottom:10px;
+}
+
+p{
+margin-bottom:20px;
+color:#555;
+}
+
+input{
+width:100%;
+padding:12px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+button{
+background:#2563eb;
+color:#fff;
+border:none;
+padding:12px 24px;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+#result{
+display:none;
+margin-top:20px;
+}
+
+#thumb{
+width:100%;
+border-radius:10px;
+border:1px solid #ddd;
+margin-bottom:20px;
+}
+
+.downloads{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:10px;
+}
+
+.downloads a{
+text-decoration:none;
+background:#16a34a;
+color:#fff;
+padding:12px;
+border-radius:8px;
+display:block;
+}
+
+.downloads a:hover{
+background:#15803d;
+}
+
+#error{
+color:red;
+margin-top:10px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📺 YouTube Thumbnail Downloader</h1>
+
+<p>Paste a YouTube Video URL to download its thumbnail.</p>
+
+<input
+type="text"
+id="url"
+placeholder="https://www.youtube.com/watch?v=...">
+
+<button onclick="getThumbnail()">
+Get Thumbnail
+</button>
+
+<div id="error"></div>
+
+<div id="result">
+
+<img id="thumb">
+
+<div class="downloads">
+
+<a id="max" download>
+HD (Max)
+</a>
+
+<a id="hq" download>
+High Quality
+</a>
+
+<a id="mq" download>
+Medium Quality
+</a>
+
+<a id="sd" download>
+Standard
+</a>
+
+</div>
+
+</div>
+
+</div>
+  <script>
+
+function getThumbnail(){
+
+const url=document.getElementById("url").value.trim();
+
+const error=document.getElementById("error");
+const result=document.getElementById("result");
+
+error.innerHTML="";
+result.style.display="none";
+
+let id="";
+
+if(url.includes("youtu.be/")){
+id=url.split("youtu.be/")[1].split("?")[0];
+}
+else if(url.includes("watch?v=")){
+id=url.split("watch?v=")[1].split("&")[0];
+}
+else if(url.includes("/shorts/")){
+id=url.split("/shorts/")[1].split("?")[0];
+}
+else{
+error.innerHTML="❌ Invalid YouTube URL";
+return;
+}
+
+const max="https://img.youtube.com/vi/"+id+"/maxresdefault.jpg";
+const hq="https://img.youtube.com/vi/"+id+"/hqdefault.jpg";
+const mq="https://img.youtube.com/vi/"+id+"/mqdefault.jpg";
+const sd="https://img.youtube.com/vi/"+id+"/sddefault.jpg";
+
+document.getElementById("thumb").src=max;
+
+document.getElementById("max").href=max;
+document.getElementById("max").download="YouTube-HD-Thumbnail.jpg";
+
+document.getElementById("hq").href=hq;
+document.getElementById("hq").download="YouTube-HQ-Thumbnail.jpg";
+
+document.getElementById("mq").href=mq;
+document.getElementById("mq").download="YouTube-MQ-Thumbnail.jpg";
+
+document.getElementById("sd").href=sd;
+document.getElementById("sd").download="YouTube-SD-Thumbnail.jpg";
+
+result.style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
