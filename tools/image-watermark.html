@@ -57,10 +57,12 @@ border:1px solid #ddd;
 
 <input type="file" id="imageInput" accept="image/*">
 <br>
+<input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" hidden>
 
-<label>Upload Logo (PNG)</label><br>
+<label for="logoInput" class="uploadBtn">
+📷 Upload Logo
+</label>
 
-<input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp">
 <br>
 
 <input type="text" id="watermarkText" placeholder="Enter Watermark Text">
