@@ -233,10 +233,45 @@ ctx.fillText(text,x,y);
   // Add Logo Watermark
 if(logoLoaded){
 
-let logoSize = 200;
+let logoSize = parseInt(document.getElementById("logoSize").value);
 
-let logoX = canvas.width - logoSize - 20;
-let logoY = canvas.height - logoSize - 20;
+let logoPosition = document.getElementById("logoPosition").value;
+
+let logoX = 20;
+let logoY = 20;
+
+
+switch(logoPosition){
+
+case "top-right":
+logoX = canvas.width - logoSize - 20;
+logoY = 20;
+break;
+
+case "center":
+logoX = (canvas.width-logoSize)/2;
+logoY = (canvas.height-logoSize)/2;
+break;
+
+case "bottom-left":
+logoX = 20;
+logoY = canvas.height-logoSize-20;
+break;
+
+case "bottom-right":
+logoX = canvas.width-logoSize-20;
+logoY = canvas.height-logoSize-20;
+break;
+
+}
+
+ctx.drawImage(
+logo,
+logoX,
+logoY,
+logoSize,
+logoSize
+);
 
 ctx.globalAlpha = opacity;
 
