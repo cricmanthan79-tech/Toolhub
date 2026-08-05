@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Video Idea Generator - ToolHub</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-bar">
+<a href="../index.html" class="btn">🏠 Home</a>
+
+<button class="btn" onclick="history.back()">
+⬅ Back
+</button>
+
+</div>
+<h1>💡 YouTube Video Idea Generator</h1>
+
+<p>Generate Viral YouTube Video Ideas Instantly</p>
+
+<label>Niche</label>
+<select id="niche">
+<option>General</option>
+<option>Cricket</option>
+<option>Technology</option>
+<option>Gaming</option>
+<option>Education</option>
+<option>Politics</option>
+<option>Finance</option>
+<option>Entertainment</option>
+</select>
+
+<label>Language</label>
+<select id="language">
+<option>Hindi</option>
+<option>English</option>
+</select>
+
+<label>Video Type</label>
+<select id="videoType">
+<option>Shorts</option>
+<option>Long Video</option>
+</select>
+
+<button class="btn" onclick="generateIdeas()">
+🚀 Generate Ideas
+</button>
+
+<h2>💡 Video Ideas</h2>
+
+<textarea id="ideas" rows="12" readonly></textarea>
+
+<button class="btn" onclick="copyText('ideas')">
+📋 Copy Ideas
+</button>
+<script>
+
+function generateIdeas(){
+
+const niche = document.getElementById("niche").value;
+
+let ideas = "";
+
+switch(niche){
+
+case "Cricket":
+ideas = `🏏 Virat Kohli Unknown Facts
+🏏 India vs Pakistan Biggest Rivalry
+🏏 Top 10 IPL Records
+🏏 IPL 2026 Mega Auction Analysis
+🏏 Biggest Cricket Controversies
+🏏 Rohit Sharma Captaincy
+🏏 Fastest Centuries Ever
+🏏 Greatest World Cup Matches
+🏏 Cricket Rules You Didn't Know
+🏏 Future Stars of Team India`;
+break;
+
+case "Technology":
+ideas = `💻 Best AI Tools
+📱 Hidden Android Features
+🚀 Future Technology
+🤖 ChatGPT Tips
+💡 Best Free Websites
+⌚ Best Smart Gadgets
+📲 Android Tricks
+💻 Laptop Buying Guide
+🔐 Cyber Security Tips
+🌐 Internet Secrets`;
+break;
+
+case "Gaming":
+ideas = `🎮 Best Android Games
+🔥 Free Fire Tips
+🎯 BGMI Tricks
+🎮 GTA 6 Updates
+🏆 Top Gaming Setups
+⚡ Gaming Secrets
+🎲 Best Offline Games
+📱 Mobile Gaming Tips
+🎮 Esports News
+🔥 Trending Games`;
+break;
+
+default:
+ideas = `🔥 Top 10 Amazing Facts
+😱 Things You Didn't Know
+💰 Best Money Tips
+📚 Study Hacks
+🌍 Amazing Places
+🎬 Movie Facts
+🎵 Music Facts
+🚀 Trending News
+💡 Life Hacks
+⭐ Viral Topics`;
+}
+
+document.getElementById("ideas").value = ideas;
+
+}
+
+function copyText(id){
+
+const text = document.getElementById(id);
+
+text.select();
+text.setSelectionRange(0,99999);
+
+navigator.clipboard.writeText(text.value);
+
+alert("Copied Successfully ✅");
+
+}
+
+</script>
+
+</body>
+</html>
