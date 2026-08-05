@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Channel Name Generator - ToolHub</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-bar">
+<a href="../index.html" class="btn">🏠 Home</a>
+
+<button class="btn" onclick="history.back()">
+⬅ Back
+</button>
+
+</div>
+<h1>📺 YouTube Channel Name Generator</h1>
+
+<p>Generate Unique & Viral YouTube Channel Names</p>
+
+<label>Select Niche</label>
+<select id="niche">
+<option>Cricket</option>
+<option>Gaming</option>
+<option>Technology</option>
+<option>Education</option>
+<option>Finance</option>
+<option>Politics</option>
+<option>Entertainment</option>
+<option>Vlogs</option>
+</select>
+
+<label>Language</label>
+<select id="language">
+<option>English</option>
+<option>Hindi</option>
+</select>
+
+<label>Style</label>
+<select id="style">
+<option>Professional</option>
+<option>Creative</option>
+<option>Cool</option>
+<option>Premium</option>
+</select>
+
+<button class="btn" onclick="generateNames()">
+🚀 Generate Channel Names
+</button>
+
+<h2>💡 Channel Names</h2>
+
+<textarea id="result" rows="14" readonly></textarea>
+
+<button class="btn" onclick="copyText('result')">
+📋 Copy Names
+</button>
+<script>
+function generateNames(){
+
+const niche = document.getElementById("niche").value;
+const language = document.getElementById("language").value;
+const style = document.getElementById("style").value;
+
+let names = [];
+
+if(niche==="Cricket"){
+names=["CricVerse","Boundary Blast","Pitch Pulse","Cricket Zone","Cric Master","PowerPlay Hub","The Cricket Show","Cric Arena","Cricket World","Bat & Ball"];
+}
+
+else if(niche==="Gaming"){
+names=["GameVerse","Pixel Pro","Gaming Arena","Noob To Pro","Victory Zone","Game Pulse","Pro Gamer Hub","Gaming Nation","Level Up","Game Storm"];
+}
+
+else if(niche==="Technology"){
+names=["Tech Verse","Tech Master","Future Tech","Tech Hub","Digital World","Tech Pulse","AI World","Smart Tech","Tech Vision","NextGen Tech"];
+}
+
+else if(niche==="Education"){
+names=["Study Hub","Exam Master","Learning Point","Knowledge Zone","Study Guru","Smart Study","Success Academy","Education World","Topper Hub","Learn Easy"];
+}
+
+else if(niche==="Finance"){
+names=["Money Mind","Wealth Hub","Finance Master","Profit Point","Cash Flow","Smart Investor","Money Vision","Finance Guru","Rich Future","Money Talks"];
+}
+
+else if(niche==="Politics"){
+names=["Political Pulse","Nation Talks","India Debate","Political Hub","Public Voice","Election Point","News Arena","Political Vision","Nation First","Political Insight"];
+}
+
+else if(niche==="Entertainment"){
+names=["Entertainment Hub","Cinema World","Fun Blast","Star World","Movie Buzz","Entertainment Zone","Bollywood Hub","Daily Fun","Show Time","Viral Entertainment"];
+}
+
+else if(niche==="Vlogs"){
+names=["Daily Vlogs","Life Journey","My Story","Travel Vibes","Daily Moments","Life Hub","Explore World","Vlog Studio","My Lifestyle","Journey Hub"];
+}
+
+if(language==="Hindi"){
+names = names.map(name => "Hindi " + name);
+}
+
+if(style==="Professional"){
+names = names.map(name => name + " Official");
+}
+else if(style==="Creative"){
+names = names.map(name => "The " + name);
+}
+else if(style==="Cool"){
+names = names.map(name => name + " X");
+}
+else if(style==="Premium"){
+names = names.map(name => name + " Pro");
+}
+
+document.getElementById("result").value = names.join("\n");
+
+}
+
+function copyText(id){
+const text = document.getElementById(id);
+text.select();
+text.setSelectionRange(0,99999);
+navigator.clipboard.writeText(text.value);
+alert("Copied Successfully ✅");
+}
+</script>
+
+</body>
+</html>
