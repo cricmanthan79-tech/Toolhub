@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cricmanthan79-tech.github.io/Toolhub/sitemap.xml
