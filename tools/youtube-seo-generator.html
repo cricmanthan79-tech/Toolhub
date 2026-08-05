@@ -114,15 +114,29 @@ ${topic} Latest Update
 Must Watch: ${topic}
 ${topic} in Hindi
 Big News: ${topic}`;
-
-document.getElementById("description").value=
-`In this video we cover ${topic} in detail.
+let desc = `In this video we cover ${topic} in detail.
 
 ✅ Latest Updates
 ✅ Important Facts
-✅ Complete Analysis
+✅ Complete Analysis`;
 
-Like 👍 Share 📤 Subscribe 🔔`;
+if(category==="Cricket"){
+desc += "\n\n🏏 Cricket News\n🏆 Match Analysis\n📢 Team Updates";
+}
+
+else if(category==="Politics"){
+desc += "\n\n🗳️ Political Analysis\n🇮🇳 Latest Government Updates\n📢 Breaking News";
+}
+
+else if(category==="Technology"){
+desc += "\n\n💻 Tech News\n📱 New Gadgets\n🚀 Latest Updates";
+}
+
+else if(category==="Education"){
+desc += "\n\n📚 Study Updates\n📝 Exam Information\n🎓 Learning Tips";
+}
+
+document.getElementById("description").value = desc + "\n\n👍 Like | 📤 Share | 🔔 Subscribe";
 
 document.getElementById("tags").value=
 `${topic}, ${topic} latest, ${topic} news, ${topic} update, youtube seo, viral video, trending, hindi`;
