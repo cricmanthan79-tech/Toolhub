@@ -1,24 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube SEO Generator - ToolHub</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
 <div class="container">
 
 <div class="top-bar">
 <a href="../index.html" class="btn">🏠 Home</a>
-<button class="btn" onclick="history.back()">⬅ Back</button>
+
+<button class="btn" onclick="history.back()">
+⬅ Back
+</button>
+
 </div>
 
 <h1>🎥 YouTube SEO Generator</h1>
 
-<p>Create Viral Titles, SEO Description & Tags</p>
-
+<p>Create Viral Titles, Description & Tags</p>
 <label>Video Topic</label>
-<input type="text" id="topic" placeholder="Example: India vs Pakistan Asia Cup 2026">
+
+<input type="text"
+id="topic"
+placeholder="Example: India vs Pakistan Asia Cup 2026">
 
 <label>Language</label>
+
 <select id="language">
 <option>Hindi</option>
 <option>English</option>
 </select>
 
 <label>Style</label>
+
 <select id="style">
 <option>Viral</option>
 <option>Professional</option>
@@ -30,53 +53,69 @@
 </button>
 
 <h2>🏷️ Viral Titles</h2>
+
 <textarea id="titles" rows="6" readonly></textarea>
-<button class="btn" onclick="copyText('titles')">📋 Copy Titles</button>
+
+<button class="btn" onclick="copyText('titles')">
+📋 Copy Titles
+</button>
+
 <h2>📝 Description</h2>
+
 <textarea id="description" rows="8" readonly></textarea>
-<button class="btn" onclick="copyText('description')">📋 Copy Description</button>
+
+<button class="btn" onclick="copyText('description')">
+📋 Copy Description
+</button>
+
 <h2>#️⃣ Tags</h2>
+
 <textarea id="tags" rows="5" readonly></textarea>
-<button class="btn" onclick="copyText('tags')">📋 Copy Tags</button>
+
+<button class="btn" onclick="copyText('tags')">
+📋 Copy Tags
+</button>
+
 </div>
 <script>
 function generateSEO(){
 
-const topic = document.getElementById("topic").value.trim();
+const topic=document.getElementById("topic").value.trim();
 
 if(topic===""){
 alert("Please enter a video topic.");
 return;
 }
 
-document.getElementById("titles").value =
+document.getElementById("titles").value=
 `🔥 ${topic}
 😱 ${topic} Explained
 Top Facts About ${topic}
 ${topic} Full Analysis
 Why ${topic} Is Trending
-${topic} Latest Update
 Everything About ${topic}
+${topic} Latest Update
+Must Watch: ${topic}
 ${topic} in Hindi
-Big News: ${topic}
-Must Watch: ${topic}`;
+Big News: ${topic}`;
 
-document.getElementById("description").value =
+document.getElementById("description").value=
 `In this video we cover ${topic} in detail.
 
 ✅ Latest Updates
 ✅ Important Facts
 ✅ Complete Analysis
 
-If you enjoyed this video, don't forget to Like, Share and Subscribe for more updates.`;
+Like 👍 Share 📤 Subscribe 🔔`;
 
-document.getElementById("tags").value =
-`${topic}, ${topic} latest, ${topic} news, ${topic} update, youtube seo, viral video, trending, hindi, latest news`;
+document.getElementById("tags").value=
+`${topic}, ${topic} latest, ${topic} news, ${topic} update, youtube seo, viral video, trending, hindi`;
 
 }
-  function copyText(id){
 
-const text = document.getElementById(id);
+function copyText(id){
+
+const text=document.getElementById(id);
 
 text.select();
 text.setSelectionRange(0,99999);
@@ -86,7 +125,6 @@ navigator.clipboard.writeText(text.value);
 alert("Copied Successfully ✅");
 
 }
-
 </script>
 
 </body>
