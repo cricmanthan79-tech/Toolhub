@@ -39,3 +39,39 @@
 <textarea id="tags" rows="5" readonly></textarea>
 
 </div>
+<script>
+function generateSEO(){
+
+const topic = document.getElementById("topic").value.trim();
+
+if(topic===""){
+alert("Please enter a video topic.");
+return;
+}
+
+document.getElementById("titles").value =
+`🔥 ${topic}
+😱 ${topic} Explained
+Top Facts About ${topic}
+${topic} Full Analysis
+Why ${topic} Is Trending
+${topic} Latest Update
+Everything About ${topic}
+${topic} in Hindi
+Big News: ${topic}
+Must Watch: ${topic}`;
+
+document.getElementById("description").value =
+`In this video we cover ${topic} in detail.
+
+✅ Latest Updates
+✅ Important Facts
+✅ Complete Analysis
+
+If you enjoyed this video, don't forget to Like, Share and Subscribe for more updates.`;
+
+document.getElementById("tags").value =
+`${topic}, ${topic} latest, ${topic} news, ${topic} update, youtube seo, viral video, trending, hindi, latest news`;
+
+}
+</script>
