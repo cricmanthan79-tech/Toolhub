@@ -1,1 +1,41 @@
+<div class="container">
 
+<div class="top-bar">
+<a href="../index.html" class="btn">🏠 Home</a>
+<button class="btn" onclick="history.back()">⬅ Back</button>
+</div>
+
+<h1>🎥 YouTube SEO Generator</h1>
+
+<p>Create Viral Titles, SEO Description & Tags</p>
+
+<label>Video Topic</label>
+<input type="text" id="topic" placeholder="Example: India vs Pakistan Asia Cup 2026">
+
+<label>Language</label>
+<select id="language">
+<option>Hindi</option>
+<option>English</option>
+</select>
+
+<label>Style</label>
+<select id="style">
+<option>Viral</option>
+<option>Professional</option>
+<option>Clickbait</option>
+</select>
+
+<button class="btn" onclick="generateSEO()">
+🚀 Generate SEO
+</button>
+
+<h2>🏷️ Viral Titles</h2>
+<textarea id="titles" rows="6" readonly></textarea>
+
+<h2>📝 Description</h2>
+<textarea id="description" rows="8" readonly></textarea>
+
+<h2>#️⃣ Tags</h2>
+<textarea id="tags" rows="5" readonly></textarea>
+
+</div>
