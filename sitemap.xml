@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<a href="image-tools.html">Image Tools</a>
-<a href="pdf-tools.html">PDF Tools</a>
-<a href="calculators.html">Calculators</a>
-<a href="youtube-tools.html">YouTube Tools</a>
+
 <url>
 <loc>https://cricmanthan79-tech.github.io/Toolhub/</loc>
+</url>
+
+<url>
+<loc>https://cricmanthan79-tech.github.io/Toolhub/image-tools.html</loc>
+</url>
+
+<url>
+<loc>https://cricmanthan79-tech.github.io/Toolhub/pdf-tools.html</loc>
+</url>
+
+<url>
+<loc>https://cricmanthan79-tech.github.io/Toolhub/calculators.html</loc>
+</url>
+
+<url>
+<loc>https://cricmanthan79-tech.github.io/Toolhub/youtube-tools.html</loc>
 </url>
 
 <url>
@@ -76,7 +89,7 @@
 </url>
 
 
-<!-- Calculator & Utility Tools -->
+<!-- Calculator & Utility -->
 
 <url>
 <loc>https://cricmanthan79-tech.github.io/Toolhub/tools/age-calculator.html</loc>
@@ -110,8 +123,7 @@
 </url>
 
 <url>
-<loc>https://cricmanthan79-tech.github.io/Toolhub/tools/youtube-video-ideas-generator.html</loc>
+<loc>https://cricmanthan79-tech.github.io/Toolhub/tools/youtube-video-idea-generator.html</loc>
 </url>
-
 
 </urlset>
